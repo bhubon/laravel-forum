@@ -74,7 +74,9 @@
                 </div>
                 <div class="space-y-3 mt-6">
                     @foreach ($threads as $thread)
-                        <a href="{{ route('forum.singe',$thread) }}"
+                        @php
+                        @endphp
+                        <a href="{{ route('forum.singe', $thread) }}"
                             class="block p-6 overflow-hidden  text-gray-900 bg-white shadow-sm  dark:bg-slate-900 dark:text-gray-100 sm:rounded-lg">
                             <div class="flex items-center space-x-6">
                                 <div class="flex-grow">
@@ -86,22 +88,25 @@
                                     <div class="mt-3 text-sm text-gray-400 line-clamp-1">
                                         <p>{{ $thread->description }}</p>
                                     </div>
-                                    <span class="inline-block mt-3 text-sm text-gray-400">Last Post By {{$thread->user->username}} {{ $thread->created_at->diffForHumans() }}</span>
+                                    <span class="inline-block mt-3 text-sm text-gray-400">Last Post By
+                                        {{ $thread->user->username }} {{ $thread->created_at->diffForHumans() }}</span>
                                 </div>
                                 <div class="flex flex-col items-end flex-shring-4">
                                     <div class="flex -space-x-4 rtl:space-x-reverse">
-                                        <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-600"
-                                            src="https://www.gravatar.com/avatar/a7aa07a958b3e5d626792d37767d77f4?d=monsterid"
-                                            alt="">
-                                        <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-600"
-                                            src="https://www.gravatar.com/avatar/a7aa07a958b3e5d626792d37767d77f4?d=monsterid"
-                                            alt="">
+                                        @foreach ($thread->replies as $reply)
+                                            <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-600"
+                                                src="https://www.gravatar.com/avatar/a7aa07a958b3e5d626792d37767d77f4?d=monsterid"
+                                                alt="{{ $reply->user->name }}">
+                                        @endforeach
                                     </div>
                                     <div class="mt-3 text-xs text-gray-400">{{ $thread->replies_count }} replies</div>
                                 </div>
                             </div>
+
+
                         </a>
                     @endforeach
+                    <div class="pagination">{{ $threads->links() }}</div>
                 </div>
             </div>
         </div>

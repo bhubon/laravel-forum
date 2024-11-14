@@ -10,7 +10,7 @@ class HomeController extends Controller {
     public function index() {
 
         $categpries = Category::all();
-        $threads = Thread::latest()->with(['category','user','replies','replies.user'])->withCount(['replies'])->paginate(10);
+        $threads = Thread::latest()->with(['category', 'user', 'replies.user'])->withCount(['replies'])->paginate(10);
 
         // dd($threads);
 
@@ -20,7 +20,13 @@ class HomeController extends Controller {
         ]);
     }
 
-    public function forum() {
-        return view('pages.singe-forum');
+    public function forum(string $thread) {
+        $thread = Thread::with(['category', 'user', 'replies'=>function($query){
+            $query->whereNull('reply_id')->with(['user','children.user']);
+        }])->withCount('replies')->findOrFail($thread);
+
+        return view('pages.singe-forum', [
+            'thread' => $thread
+        ]);
     }
 }

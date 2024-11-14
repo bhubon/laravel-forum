@@ -62,11 +62,11 @@
                         class="flex items-center justify-between p-6 overflow-hidden text-gray-900 bg-white shadow-sm dark:bg-slate-900 sm:rounded-lg dark:text-gray-100">
                         <div class="flex items-center space-x-3">
                             <span
-                                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-slate-700 dark:text-slate-300">Laravel</span>
-                            <h1 class="text-lg font-medium">PHP & Laravel Authenciation System</h1>
+                                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-slate-700 dark:text-slate-300">{{ $thread->category->title }}</span>
+                            <h1 class="text-lg font-medium">{{ $thread->title }}</h1>
                         </div>
                         <div class="text-gray-900 dark:text-gray-300 text-xs">
-                            6 replies
+                            {{ $thread->replies_count }} replies
                         </div>
                     </div>
                     <div class="relative">
@@ -78,18 +78,13 @@
                             </div>
                             <div class="w-full">
                                 <div>
-                                    <div>Name</div>
-                                    <div class="text-sm text-gray-500">Posted 3 days ago</div>
+                                    <div>{{ $thread->user->username }}</div>
+                                    <div class="text-sm text-gray-500">Posted {{ $thread->created_at->diffForHumans() }}
+                                    </div>
                                 </div>
                                 <div class="mt-3">
                                     <div class="prose text-gray-400">
-                                        <p>
-                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem nulla
-                                            nesciunt eum dolores, non id sint et possimus laboriosam veniam, accusamus
-                                            sapiente amet optio? Excepturi aliquid eaque modi optio a praesentium minima aut
-                                            ea, nihil natus aspernatur impedit odio rerum obcaecati in illum voluptate vel.
-                                            Accusantium ipsum maiores repellendus saepe.
-                                        </p>
+                                        {{ $thread->description }}
                                     </div>
                                 </div>
                                 <ul class="flex items-center mt-6 space-x-3">
@@ -99,173 +94,66 @@
                         </div>
                         <div class="space-y-3 mt-3">
                             <div class="relative">
-                                <div
-                                    class="relative flex items-start p-6 space-x-3 overflow-hidden text-gra-900 bg-white border-1-4 border-transparent shadow-sdm dark:bg-slate-900 sm:rounded-lg dark:text-gray-100">
-                                    <div class="flex-shrink-0 w-7">
-                                        <img src="https://www.gravatar.com/avatar/09986ee0356fdaa75cfce00189cd8513?d=monsterid"
-                                            alt="" class="rounded-full w-7 h-7">
-                                    </div>
-                                    <div class="w-full">
-                                        <div>
-                                            <div>Name</div>
-                                            <div class="text-sm text-gray-500">Posted 3 days ago</div>
+                                @foreach ($thread->replies as $reply)
+                                    <div
+                                        class="relative flex items-start p-6 space-x-3 overflow-hidden text-gra-900 bg-white border-1-4 border-transparent shadow-sdm dark:bg-slate-900 sm:rounded-lg dark:text-gray-100 mt-3">
+                                        <div class="flex-shrink-0 w-7">
+                                            <img src="https://www.gravatar.com/avatar/09986ee0356fdaa75cfce00189cd8513?d=monsterid"
+                                                alt="" class="rounded-full w-7 h-7">
                                         </div>
-                                        <div class="mt-3">
-                                            <div class="prose text-gray-400">
-                                                <p>
-                                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem
-                                                    nulla nesciunt eum dolores, non id sint et possimus laboriosam veniam,
-                                                    accusamus sapiente amet optio? Excepturi aliquid eaque modi optio a
-                                                    praesentium minima aut ea, nihil natus aspernatur impedit odio rerum
-                                                    obcaecati in illum voluptate vel. Accusantium ipsum maiores repellendus
-                                                    saepe.
-                                                </p>
+                                        <div class="w-full">
+                                            <div>
+                                                <div>{{ $reply->user->username }}</div>
+                                                <div class="text-sm text-gray-500">Posted
+                                                    {{ $reply->created_at->diffForHumans() }}</div>
                                             </div>
-                                        </div>
-                                        <ul class="flex items-center mt-6 space-x-3">
-                                            <li><a href=""
-                                                    class="text-sm text-gray-500 hover:text-gray-400">Reply</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="space-y-3 mt-3">
-                                    <div class="relative ml-16">
-                                        <span class="before:border-l-4 before:border-slate-800 before:h-[calc(100%+12px)] before:bottom-0 before:absolute before:-left-10"></span>
-                                        <span class="before:w-5 before:h-1 before:bg-slate-800 before:absolute before:-left-9 before:top-5 after:w-2 after:h-2 after:absolute after:rotate-45 after:bg-slate-800 after:top-[18px] after:-left-4 "></span>
-                                        <div
-                                            class="relative flex items-start p-6 space-x-3 overflow-hidden text-gra-900 bg-white border-1-4 border-transparent shadow-sdm dark:bg-slate-900 sm:rounded-lg dark:text-gray-100">
-                                            <div class="flex-shrink-0 w-7">
-                                                <img src="https://www.gravatar.com/avatar/09986ee0356fdaa75cfce00189cd8513?d=monsterid"
-                                                    alt="" class="rounded-full w-7 h-7">
-                                            </div>
-                                            <div class="w-full">
-                                                <div>
-                                                    <div>Name</div>
-                                                    <div class="text-sm text-gray-500">Posted 3 days ago</div>
+                                            <div class="mt-3">
+                                                <div class="prose text-gray-400">
+                                                    {{ $reply->comment }}
                                                 </div>
-                                                <div class="mt-3">
-                                                    <div class="prose text-gray-400">
-                                                        <p>
-                                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                                            Voluptatem nulla nesciunt eum dolores, non id sint et possimus
-                                                            laboriosam veniam, accusamus sapiente amet optio? Excepturi
-                                                            aliquid eaque modi optio a praesentium minima aut ea, nihil
-                                                            natus aspernatur impedit odio rerum obcaecati in illum voluptate
-                                                            vel. Accusantium ipsum maiores repellendus saepe.
-                                                        </p>
+                                            </div>
+                                            <ul class="flex items-center mt-6 space-x-3">
+                                                <li><a href=""
+                                                        class="text-sm text-gray-500 hover:text-gray-400">Reply</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    @if ($reply->children->isNotEmpty())
+                                        @foreach ($reply->children as $children_reply)
+                                            <div class="space-y-3 mt-3">
+                                                <div class="relative ml-16">
+                                                    <span
+                                                        class="before:border-l-4 before:border-slate-800 before:h-[calc(100%+12px)] before:bottom-0 before:absolute before:-left-10"></span>
+                                                    <span
+                                                        class="before:w-5 before:h-1 before:bg-slate-800 before:absolute before:-left-9 before:top-5 after:w-2 after:h-2 after:absolute after:rotate-45 after:bg-slate-800 after:top-[18px] after:-left-4 "></span>
+                                                    <div
+                                                        class="relative flex items-start p-6 space-x-3 overflow-hidden text-gra-900 bg-white border-1-4 border-transparent shadow-sdm dark:bg-slate-900 sm:rounded-lg dark:text-gray-100">
+                                                        <div class="flex-shrink-0 w-7">
+                                                            <img src="https://www.gravatar.com/avatar/09986ee0356fdaa75cfce00189cd8513?d=monsterid"
+                                                                alt="" class="rounded-full w-7 h-7">
+                                                        </div>
+                                                        <div class="w-full">
+                                                            <div>
+                                                                <div>{{ $children_reply->user->username }}</div>
+                                                                <div class="text-sm text-gray-500">Posted
+                                                                    {{ $children_reply->created_at->diffForHumans() }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-3">
+                                                                <div class="prose text-gray-400">
+                                                                    {{ $children_reply->comment }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <ul class="flex items-center mt-6 space-x-3">
-                                                    <li><a href=""
-                                                            class="text-sm text-gray-500 hover:text-gray-400">Reply</a>
-                                                    </li>
-                                                </ul>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="relative ml-16">
-                                        <span class="before:border-l-4 before:border-slate-800 before:h-[calc(100%+12px)] before:bottom-0 before:absolute before:-left-10"></span>
-                                        <span class="before:w-5 before:h-1 before:bg-slate-800 before:absolute before:-left-9 before:top-5 after:w-2 after:h-2 after:absolute after:rotate-45 after:bg-slate-800 after:top-[18px] after:-left-4 "></span>
-                                        <div
-                                            class="relative flex items-start p-6 space-x-3 overflow-hidden text-gra-900 bg-white border-1-4 border-transparent shadow-sdm dark:bg-slate-900 sm:rounded-lg dark:text-gray-100">
-                                            <div class="flex-shrink-0 w-7">
-                                                <img src="https://www.gravatar.com/avatar/09986ee0356fdaa75cfce00189cd8513?d=monsterid"
-                                                    alt="" class="rounded-full w-7 h-7">
-                                            </div>
-                                            <div class="w-full">
-                                                <div>
-                                                    <div>Name</div>
-                                                    <div class="text-sm text-gray-500">Posted 3 days ago</div>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <div class="prose text-gray-400">
-                                                        <p>
-                                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                                            Voluptatem nulla nesciunt eum dolores, non id sint et possimus
-                                                            laboriosam veniam, accusamus sapiente amet optio? Excepturi
-                                                            aliquid eaque modi optio a praesentium minima aut ea, nihil
-                                                            natus aspernatur impedit odio rerum obcaecati in illum voluptate
-                                                            vel. Accusantium ipsum maiores repellendus saepe.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <ul class="flex items-center mt-6 space-x-3">
-                                                    <li><a href=""
-                                                            class="text-sm text-gray-500 hover:text-gray-400">Reply</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="relative ml-16">
-                                        <span class="before:border-l-4 before:border-slate-800 before:h-[calc(100%+12px)] before:bottom-0 before:absolute before:-left-10"></span>
-                                        <span class="before:w-5 before:h-1 before:bg-slate-800 before:absolute before:-left-9 before:top-5 after:w-2 after:h-2 after:absolute after:rotate-45 after:bg-slate-800 after:top-[18px] after:-left-4 "></span>
-                                        <div
-                                            class="relative flex items-start p-6 space-x-3 overflow-hidden text-gra-900 bg-white border-1-4 border-transparent shadow-sdm dark:bg-slate-900 sm:rounded-lg dark:text-gray-100">
-                                            <div class="flex-shrink-0 w-7">
-                                                <img src="https://www.gravatar.com/avatar/09986ee0356fdaa75cfce00189cd8513?d=monsterid"
-                                                    alt="" class="rounded-full w-7 h-7">
-                                            </div>
-                                            <div class="w-full">
-                                                <div>
-                                                    <div>Name</div>
-                                                    <div class="text-sm text-gray-500">Posted 3 days ago</div>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <div class="prose text-gray-400">
-                                                        <p>
-                                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                                            Voluptatem nulla nesciunt eum dolores, non id sint et possimus
-                                                            laboriosam veniam, accusamus sapiente amet optio? Excepturi
-                                                            aliquid eaque modi optio a praesentium minima aut ea, nihil
-                                                            natus aspernatur impedit odio rerum obcaecati in illum voluptate
-                                                            vel. Accusantium ipsum maiores repellendus saepe.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <ul class="flex items-center mt-6 space-x-3">
-                                                    <li><a href=""
-                                                            class="text-sm text-gray-500 hover:text-gray-400">Reply</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="relative ml-16">
-                                        <span class="before:border-l-4 before:border-slate-800 before:h-[calc(100%+12px)] before:bottom-0 before:absolute before:-left-10"></span>
-                                        <span class="before:w-5 before:h-1 before:bg-slate-800 before:absolute before:-left-9 before:top-5 after:w-2 after:h-2 after:absolute after:rotate-45 after:bg-slate-800 after:top-[18px] after:-left-4 "></span>
-                                        <div
-                                            class="relative flex items-start p-6 space-x-3 overflow-hidden text-gra-900 bg-white border-1-4 border-transparent shadow-sdm dark:bg-slate-900 sm:rounded-lg dark:text-gray-100">
-                                            <div class="flex-shrink-0 w-7">
-                                                <img src="https://www.gravatar.com/avatar/09986ee0356fdaa75cfce00189cd8513?d=monsterid"
-                                                    alt="" class="rounded-full w-7 h-7">
-                                            </div>
-                                            <div class="w-full">
-                                                <div>
-                                                    <div>Name</div>
-                                                    <div class="text-sm text-gray-500">Posted 3 days ago</div>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <div class="prose text-gray-400">
-                                                        <p>
-                                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                                            Voluptatem nulla nesciunt eum dolores, non id sint et possimus
-                                                            laboriosam veniam, accusamus sapiente amet optio? Excepturi
-                                                            aliquid eaque modi optio a praesentium minima aut ea, nihil
-                                                            natus aspernatur impedit odio rerum obcaecati in illum voluptate
-                                                            vel. Accusantium ipsum maiores repellendus saepe.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <ul class="flex items-center mt-6 space-x-3">
-                                                    <li><a href=""
-                                                            class="text-sm text-gray-500 hover:text-gray-400">Reply</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+
+
                             </div>
                         </div>
                     </div>
